@@ -1,9 +1,9 @@
-#button-row {
+.button-row {
     display: table-cell;
     max-width: 600px;
   }
   
-#button {
+.button {
     background-color: #021f14; /* Green */
     border: none;
     color: rgb(209, 62, 62);

@@ -232,9 +232,9 @@
       </svg>
       <h1>{{ title }}</h1>
       <p>Find the answers to your burning questions by typing below!</p>
-      <div>
+      <div style="width:864px;">
         <mat-form-field>
-          <textarea matInput [(ngModel)]="userInput"></textarea>
+          <textarea matInput style="display: flex; flex-direction: column; width: 100%; height: 100%;" [(ngModel)]="userInput"></textarea>
         </mat-form-field>
       </div>
       <div class="button-row">
