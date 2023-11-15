@@ -33,6 +33,16 @@
   color: whitesmoke;
 }
 
+ul {
+  list-style-type: none;
+}
+
+.query-list {
+  padding: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 /* .button-row {
     display: table-cell;
     max-width: 600px;
