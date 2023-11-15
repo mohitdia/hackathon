@@ -7,9 +7,9 @@
         </div>
         <div>
           <h3>Recent list of questions</h3>
-          <ul>
+          <ol>
             <li *ngFor="let query of recentQueries" class="query-list">{{query}}</li>
-          </ul>
+          </ol>
         </div>
         <div class="navbar-feedback">
           Feedback
@@ -25,7 +25,7 @@
         <span *ngIf="isLoading">Loading...</span>
         <div *ngIf="!isLoading" [innerHTML]="ascentiaAnswer">
         </div>
-        <div *ngFor="let tocSection of tocSections">
+        <div *ngFor="let tocSection of faqs">
           <!-- <button (click)="onBtnClick(tocSection)">{{tocSection}}</button> -->
           <p-button [label]="tocSection" (click)="onBtnClick(tocSection)"></p-button>
         </div>

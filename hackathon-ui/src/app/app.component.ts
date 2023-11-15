@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
   selectedQueryFromRecentList = '';
   isLoading: boolean = false;
   tocQuestion: string = 'What are the top table of contents sections?';
-  tocSections: string[] = ['FAQs'];
+  faqs: string[] = [];
+  commonFaqs: string[] = ['Contact', 'FAQs'];
 
   constructor(private http: HttpClient) {
     this.isLoading = true;
@@ -42,7 +43,8 @@ export class AppComponent implements OnInit {
       ).subscribe((res:any) => {
       this.isLoading = false;
       const tocSectionsResponse: string = res.data;
-      this.tocSections = tocSectionsResponse.split('\n');
+      this.faqs = tocSectionsResponse.split('\n');
+      this.faqs = this.faqs.concat(this.commonFaqs);
       // this.ascentiaAnswer = res;
       // this.questionAsked = this.tocQuestion;
     })
@@ -71,10 +73,18 @@ export class AppComponent implements OnInit {
   }
 
   onBtnClick(tocSection: string) {
-    const regex = /[0-9]/g;
-    const lettersOnlyString = tocSection.replace('.', '').replace(regex, "");
-    const ragQuery = 'Summarize the section ' + lettersOnlyString;
-    this.value = ragQuery;
+    if (!tocSection.includes('Contact') && !tocSection.includes('FAQs')) {
+      const regex = /[0-9]/g;
+      const lettersOnlyString = tocSection.replace('.', '').replace(regex, "");
+      const ragQuery = 'Summarize the section ' + lettersOnlyString;
+      this.value = ragQuery;
+    }
+    else if(tocSection.includes('Contact')) {
+      this.value = 'What is the contact number and email address?';
+    }
+    else {
+      this.value = 'What are the FAQs?';
+    }
     this.submit();
 
   }

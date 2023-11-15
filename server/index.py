@@ -16,7 +16,7 @@ def disp():
     rag_request = bai.RAGCompletionRequest(
         workspace_id=9,  # provided through Dev Portal
         query=query,
-        n_documents=5,
+        n_documents=3,
         temperature=0.1,
         top_p=0.99,
         system_prompt=""
@@ -29,7 +29,7 @@ def disp():
 
     print(rag_completion)
 
-    print(rag_completion.answer)
+    print('Model answer' + rag_completion.answer)
   
     return jsonify({'data': rag_completion.answer}) 
 
