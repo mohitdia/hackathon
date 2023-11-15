@@ -19,6 +19,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
  
 # home route that returns below text when root url is accessed
+#  manually copying files to this static directory
 @app.route("/", methods= ['GET'])
 def hello_world():
     return render_template('index.html')
@@ -26,9 +27,3 @@ def hello_world():
 if __name__ == '__main__':  
    app.run()
 
-# from flask import Flaskapp = Flask(__name__)
-# @app.route(‘/’, methods=[‘GET’])
-# def root():
-#     return “Hello world”
-# if __name__==”__main__”:
-#     app.run()
