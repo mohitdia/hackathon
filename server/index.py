@@ -16,10 +16,11 @@ def disp():
     rag_request = bai.RAGCompletionRequest(
         workspace_id=9,  # provided through Dev Portal
         query=query,
-        n_documents=3,
-        temperature=0.1,
-        top_p=0.99,
-        system_prompt=""
+        n_documents=5,
+        temperature=0.25,
+        top_p=0.92,
+        system_prompt="",
+        max_new_tokens=400
     )
 
     api_base = 'https://betaai.collins.com'
