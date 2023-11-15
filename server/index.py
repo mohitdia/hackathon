@@ -12,8 +12,8 @@
 #     return jsonify({"status": "healthy"})
 
 
-# import flast module
-from flask import Flask, render_template
+# below approach relies on copying stuff from angular build to static folders
+from flask import Flask, render_template, jsonify
  
 # instance of flask application
 app = Flask(__name__)
@@ -23,6 +23,11 @@ app = Flask(__name__)
 @app.route("/", methods= ['GET'])
 def hello_world():
     return render_template('index.html')
+
+@app.route('/home/<int:num>', methods = ['GET']) 
+def disp(num): 
+  
+    return jsonify({'data': num**2}) 
  
 if __name__ == '__main__':  
    app.run()
