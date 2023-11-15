@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from  '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,16 +23,29 @@ export class AppComponent {
 
   public title = 'Ask Me Anything!';
   public userInput: string = "";
-  value:string = 'some value';
+  value:string = '';
+  ascentiaAnswer: string = '';
+  questionAsked:string = '';
 
   constructor(private http: HttpClient) {
-    this.http.get('http://127.0.0.1:5000/home/3').subscribe((res) => {
-      console.log('value of response', res)
+    this.http.get('http://127.0.0.1:5000/getanswer', {
+      params: {ragQuery : 'what is ascentia'}
+    }).pipe(take(1)).subscribe((res:any) => {
+      
+      this.ascentiaAnswer = res.data;
+      this.questionAsked = 'What Is Ascentia'
     })
   }
 
-  public submit(): void {
-    console.log("you clicked submit");
-    console.log("user input", this.userInput);
+  submit(): void {
+    this.questionAsked = ''
+    this.ascentiaAnswer = '';
+    this.http.get('http://127.0.0.1:5000/getanswer', {
+      params: {ragQuery : this.value}
+    }).pipe(take(1)).subscribe((res:any) => {
+      this.ascentiaAnswer = res.data;
+      this.questionAsked = this.value;
+      this.value = '';
+    })
   }
 }
