@@ -13,15 +13,22 @@
 
 
 # import flast module
-from flask import Flask
+from flask import Flask, render_template
  
 # instance of flask application
 app = Flask(__name__)
  
 # home route that returns below text when root url is accessed
-@app.route("/")
+@app.route("/", methods= ['GET'])
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return render_template('index.html')
  
 if __name__ == '__main__':  
    app.run()
+
+# from flask import Flaskapp = Flask(__name__)
+# @app.route(‘/’, methods=[‘GET’])
+# def root():
+#     return “Hello world”
+# if __name__==”__main__”:
+#     app.run()
