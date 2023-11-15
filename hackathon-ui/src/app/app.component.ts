@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { map, take } from 'rxjs/operators';
+
 import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from  '@angular/common/http';
-import { take } from 'rxjs/operators';
-import { ListboxModule } from 'primeng/listbox';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet,HttpClientModule, MatFormFieldModule, MatInputModule, MatIconModule, 
-    MatButtonModule, FormsModule, ButtonModule, ListboxModule],
+    MatButtonModule, FormsModule, ButtonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -29,33 +29,53 @@ export class AppComponent implements OnInit {
   questionAsked:string = '';
   recentQueries: string[] = [];
   selectedQueryFromRecentList = '';
+  isLoading: boolean = false;
+  tocQuestion: string = 'What are the top table of contents sections?';
+  tocSections: string[] = ['FAQs'];
 
   constructor(private http: HttpClient) {
+    this.isLoading = true;
     this.http.get('http://127.0.0.1:5000/getanswer', {
-      params: {ragQuery : 'what is ascentia'}
-    }).pipe(take(1)).subscribe((res:any) => {
-      
-      this.ascentiaAnswer = res.data;
-      this.questionAsked = 'What Is Ascentia'
+      params: {ragQuery : this.tocQuestion}
+    }).pipe(
+      take(1),
+      ).subscribe((res:any) => {
+      this.isLoading = false;
+      const tocSectionsResponse: string = res.data;
+      this.tocSections = tocSectionsResponse.split('\n');
+      // this.ascentiaAnswer = res;
+      // this.questionAsked = this.tocQuestion;
     })
   }
 
   ngOnInit() {
-    this.recentQueries = [
-        'What is Ascentia'
-    ];
 }
 
   submit(): void {
+    this.isLoading = true;
     this.questionAsked = ''
     this.ascentiaAnswer = '';
     this.http.get('http://127.0.0.1:5000/getanswer', {
       params: {ragQuery : this.value}
-    }).pipe(take(1)).subscribe((res:any) => {
-      this.ascentiaAnswer = res.data;
+    }).pipe(
+      take(1),
+      map((response: any) => response.data?.replaceAll('\n', '<br>'))
+      )
+    .subscribe((res:any) => {
+      this.isLoading = false;
+      this.ascentiaAnswer = res;
       this.questionAsked = this.value;
       this.recentQueries.push(this.value);
       this.value = '';
     })
+  }
+
+  onBtnClick(tocSection: string) {
+    const regex = /[0-9]/g;
+    const lettersOnlyString = tocSection.replace('.', '').replace(regex, "");
+    const ragQuery = 'Summarize the section ' + lettersOnlyString;
+    this.value = ragQuery;
+    this.submit();
+
   }
 }

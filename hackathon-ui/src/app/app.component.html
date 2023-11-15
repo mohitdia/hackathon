@@ -22,9 +22,14 @@
           Get answers here
         </h2>
         <h3 class="font-bold">{{questionAsked}}</h3>
-        <div [innerHTML]="ascentiaAnswer">
-
+        <span *ngIf="isLoading">Loading...</span>
+        <div *ngIf="!isLoading" [innerHTML]="ascentiaAnswer">
         </div>
+        <div *ngFor="let tocSection of tocSections">
+          <!-- <button (click)="onBtnClick(tocSection)">{{tocSection}}</button> -->
+          <p-button [label]="tocSection" (click)="onBtnClick(tocSection)"></p-button>
+        </div>
+        
       </div>
       <div class="text-center p-0 font-bold main-section-content flex flex-column">
         <textarea rows="5" cols="100" pInputTextarea [(ngModel)]="value"></textarea>
