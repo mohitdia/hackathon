@@ -10,13 +10,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet,HttpClientModule, MatFormFieldModule, MatInputModule, MatIconModule, 
-    MatButtonModule, FormsModule, ButtonModule],
+    MatButtonModule, FormsModule, ButtonModule, ProgressSpinnerModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

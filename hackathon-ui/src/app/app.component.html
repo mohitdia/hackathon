@@ -24,13 +24,16 @@
           Ask Questions About Ascentia
         </h2>
         <h3 class="font-bold">{{questionAsked}}</h3>
-        <span *ngIf="isLoading">Loading...</span>
+        <div *ngIf="isLoading" class="flex flex-row justify-content-center align-items-center" style="height: 100%">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
         <div *ngIf="!isLoading" [innerHTML]="ascentiaAnswer">
         </div>
 
         
       </div>
       <div class="text-center p-0 font-bold main-section-content flex flex-column">
+        <h3>Here are a list of questions that you can ask Ascentia about Table of Contents, Contact information and FAQs</h3>
         <div class="flex flex-row flex-wrap">
           <div *ngFor="let tocSection of faqs" class="button-wrapper">
             <!-- <button (click)="onBtnClick(tocSection)">{{tocSection}}</button> -->
