@@ -44,6 +44,8 @@ export class AppComponent implements OnInit {
       this.isLoading = false;
       const tocSectionsResponse: string = res.data;
       this.faqs = tocSectionsResponse.split('\n');
+      const regex = /[0-9]/g;
+      this.faqs = this.faqs.map(res => res.replace('.', '').replace(regex, ""))
       this.faqs = this.faqs.concat(this.commonFaqs);
       // this.ascentiaAnswer = res;
       // this.questionAsked = this.tocQuestion;

@@ -3,14 +3,16 @@
     <div class="col-3 navbar-section-container">
       <div class="text-center p-0 font-bold navbar-section-content flex flex-column justify-content-between">
         <div class="navbar-header">
-          Ascentia
+          <h4>Ascentia</h4>
+
+          <div>
+            <h5 class="recent-question-heading flex align-items-start">Recent list of questions</h5>
+            <ol class="flex flex-column align-items-start">
+              <li *ngFor="let query of recentQueries" class="query-list">{{query}}</li>
+            </ol>
+          </div>
         </div>
-        <div>
-          <h3>Recent list of questions</h3>
-          <ol>
-            <li *ngFor="let query of recentQueries" class="query-list">{{query}}</li>
-          </ol>
-        </div>
+
         <div class="navbar-feedback">
           Feedback
         </div>
@@ -18,24 +20,28 @@
     </div>
     <div class="col-8 main-section-container flex flex-column justify-content-between">
       <div class="">
-        <h2>
-          Get answers here
+        <h2 class="flex justify-content-center">
+          Ask Questions About Ascentia
         </h2>
         <h3 class="font-bold">{{questionAsked}}</h3>
         <span *ngIf="isLoading">Loading...</span>
         <div *ngIf="!isLoading" [innerHTML]="ascentiaAnswer">
         </div>
-        <div *ngFor="let tocSection of faqs">
-          <!-- <button (click)="onBtnClick(tocSection)">{{tocSection}}</button> -->
-          <p-button [label]="tocSection" (click)="onBtnClick(tocSection)"></p-button>
-        </div>
+
         
       </div>
       <div class="text-center p-0 font-bold main-section-content flex flex-column">
-        <textarea rows="5" cols="100" pInputTextarea [(ngModel)]="value"></textarea>
+        <div class="flex flex-row flex-wrap">
+          <div *ngFor="let tocSection of faqs" class="button-wrapper">
+            <!-- <button (click)="onBtnClick(tocSection)">{{tocSection}}</button> -->
+            <p-button [label]="tocSection" (click)="onBtnClick(tocSection)"></p-button>
+          </div>
+        </div>
 
-        <div class="card flex justify-content-center">
-          <p-button label="Submit" (onClick)="submit()"></p-button>
+        <textarea class="text-area-container" rows="5" cols="100" pInputTextarea [(ngModel)]="value"></textarea>
+
+        <div class="card flex justify-content-center submit-btn-wrapper">
+          <p-button label="SUBMIT" (onClick)="submit()"></p-button>
         </div>
       </div>
     </div>
